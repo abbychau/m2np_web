@@ -37,7 +37,7 @@ function timeDifference(previous) {
     return Math.round(elapsed / msPerYear) + ' years ago';
   }
 }
-class App extends React.Component {
+export class Timeline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,25 +66,6 @@ class App extends React.Component {
         }
       )
 
-    fetch("https://m2np.com/api/users/123")
-      .then(res => res.json())
-      .then((result) => {
-        this.setState({
-          isLoaded: this.state.isLoaded + 1,
-          users: result.reduce((map, obj) => {
-            map[obj.id] = obj.display_name
-            return map
-          }, {})
-
-        });
-      }, (error) => {
-        this.setState({
-          isLoaded: this.state.isLoaded + 1,
-          error
-        });
-      }
-
-      );
   }
 
   render() {
@@ -98,7 +79,7 @@ class App extends React.Component {
         <div>
           {items.map(item => (
             <p key={item.id}>
-              {item.json.post}  <Link to={`/${this.state.users[item.user_id]}`} style={{color:"red"}}>{this.state.users[item.user_id]}</Link> @ <span>{timeDifference(item.json.created_at / 1000)}</span>
+              {item.json.post}  <Link to={`/u/${this.state.username}`} style={{color:"red"}}>{this.state.users[item.user_id]}</Link> @ <span>{timeDifference(item.json.created_at / 1000)}</span>
             </p>
           ))}
 
@@ -107,6 +88,3 @@ class App extends React.Component {
     }
   }
 }
-
-
-export default App;
