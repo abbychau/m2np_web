@@ -1,7 +1,7 @@
 import React, { useGlobal } from 'reactn'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import { Timeline } from "./Timeline"
-import { Input } from "./Input"
+import Input from "./Input"
 
 class App extends React.PureComponent {
 
