@@ -1,5 +1,7 @@
-import React from 'react';
+import React from 'reactn';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import nl2br from 'react-nl2br';
+
 
 // import styles from './App.css'
 
@@ -38,13 +40,13 @@ function timeDifference(previous) {
   }
 }
 export class Timeline extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
       error: null,
       isLoaded: 0,
-      items: [],
-      users: []
+      items: []
     };
   }
 
@@ -54,13 +56,13 @@ export class Timeline extends React.Component {
       .then(
         (result) => {
           this.setState({
-            isLoaded: this.state.isLoaded + 1,
+            isLoaded: true,
             items: result
           });
         },
         (error) => {
           this.setState({
-            isLoaded: this.state.isLoaded + 1,
+            isLoaded: true,
             error
           });
         }
@@ -72,15 +74,16 @@ export class Timeline extends React.Component {
     const { error, isLoaded, items } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
-    } else if (isLoaded < 2) {
+    } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
       return (
         <div>
-          {items.map(item => (
-            <p key={item.id}>
-              {item.json.post}  <Link to={`/u/${this.state.username}`} style={{color:"red"}}>{this.state.users[item.user_id]}</Link> @ <span>{timeDifference(item.json.created_at / 1000)}</span>
-            </p>
+          {items.map((item,k) => (
+            <div key={item.id} style={{background: k%2?"#EEE":"none" }}>
+              {nl2br(item.json.post)}
+              <Link to={`/u/${this.state.username}`} style={{color:"red"}}>{this.global.users[item.user_id].username}</Link> @ <span>{timeDifference(item.json.created_at / 1000)}</span>
+            </div>
           ))}
 
         </div>

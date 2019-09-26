@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { setGlobal } from 'reactn';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+setGlobal({
+    users: {},
+    notifications: [],
+    me: {}
+});
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

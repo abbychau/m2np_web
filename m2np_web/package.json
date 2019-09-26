@@ -6,16 +6,18 @@
     "lodash": "^4.17.15",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-nl2br": "^0.5.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.2",
     "react-timeago": "^4.4.0",
-    "use-global-hook": "^0.1.11"
+    "reactn": "^2.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.js;exit 0"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -31,5 +33,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.4.0",
+    "eslint-plugin-react": "^7.14.3"
   }
 }

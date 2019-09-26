@@ -1,31 +1,23 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Timeline } from "./Timeline";
-import useGlobal from "./store";
+import React, { useGlobal } from 'reactn'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import { Timeline } from "./Timeline"
 
-class App extends React.Component {
+class App extends React.PureComponent {
 
-    constructor(props) {
-        super(props);
-        fetch("https://m2np.com/api/users/123")
-            .then(res => res.json())
-            .then((result) => {
-                this.setState({
-                    isLoaded: this.state.isLoaded + 1,
-                    users: result.reduce((map, obj) => {
-                        map[obj.id] = obj.display_name
+    componentDidMount() {
+        this.setGlobal(
+            fetch("https://m2np.com/api/users/subscribed")
+                .then(res => res.json())
+                .then((res) => ({
+                    users: res.reduce((map, obj) => {
+                        map[obj.id] = obj
+                        console.log(map)
                         return map
                     }, {})
-
-                });
-            }, (error) => {
-                this.setState({
-                    isLoaded: this.state.isLoaded + 1,
-                    error
-                });
-            }
-
-            );
+                })
+                )
+                .catch((e) => { console.log(e) })
+        )
     }
 
     render() {
@@ -46,9 +38,9 @@ class App extends React.Component {
                             <Link to="/timeline">Timeline</Link>
                         </li>
                     </ul>
-
+                    <div>{JSON.stringify(this.global.users)}</div>
                     <Route exact path="/" component={Home} />
-                    <Route path="/u" component={User} />
+                    <Route path="/u" component={UserPage} />
                     <Route path="/topics" component={Topics} />
                     <Route path="/timeline" component={Timeline} />
                 </div>
@@ -57,20 +49,28 @@ class App extends React.Component {
     };
 }
 
+function syncFetch(url) {
+    var data;
+    (async () => {
+        const s2 = await fetch(url);
+        data = await s2.json()
+    })()
+    return data
+}
 const Home = () => <h2>Home2</h2>
-const UserPage = (match)=>{
+const UserPage = (match) => {
     console.log(match)
-    const s = useGlobal()[0];
-    return <div>{JSON.stringify(s.users)}</div>
+    var s2 = syncFetch(`https://m2np.com/api/user/1`);
+    return <div>{JSON.stringify(s2)} </div>
 
 }
 class User extends React.Component {
     state = {
         posts: []
     }
-    constructor(p){
+    constructor(p) {
         super(p)
-          const [globalState, globalActions] = useGlobal();
+        // const [globalState, globalActions] = useGlobal();
 
     }
     componentDidMount() {
