@@ -1,6 +1,7 @@
 import React, { useGlobal } from 'reactn'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import { Timeline } from "./Timeline"
+import { Input } from "./Input"
 
 class App extends React.PureComponent {
 
@@ -38,7 +39,8 @@ class App extends React.PureComponent {
                             <Link to="/timeline">Timeline</Link>
                         </li>
                     </ul>
-                    <div>{JSON.stringify(this.global.users)}</div>
+                    <Input />
+                    <div>{JSON.stringify(this.global)}</div>
                     <Route exact path="/" component={Home} />
                     <Route path="/u" component={UserPage} />
                     <Route path="/topics" component={Topics} />
