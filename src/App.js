@@ -1,7 +1,8 @@
 import React, { useGlobal } from 'reactn'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import { Timeline } from "./Timeline"
-import Input from "./Input"
+import Navbar from "./Navbar"
+import AsyncUserMentions from "./Input/AsyncUserMention"
 
 class App extends React.PureComponent {
 
@@ -25,30 +26,21 @@ class App extends React.PureComponent {
         return (
             <Router>
                 <div>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link to="/topics">Topics</Link>
-                        </li>
-                        <li>
-                            <Link to="/timeline">Timeline</Link>
-                        </li>
-                    </ul>
-                    <Input />
-                    <div>{JSON.stringify(this.global)}</div>
+                <div>
+  <h2>Scroll Down</h2>
+  <p>Scroll down to see the sticky effect.</p>
+</div>
+                    <Navbar style={{zIndex:'1000'}}/>
+                    <AsyncUserMentions  style={{zIndex:'1'}} />
+                    <div style={{color:"#ccc"}}>{JSON.stringify(this.global)}</div>
                     <Route exact path="/" component={Home} />
                     <Route path="/u" component={UserPage} />
-                    <Route path="/topics" component={Topics} />
+                    <Route path="/users" component={Users} />
                     <Route path="/timeline" component={Timeline} />
                 </div>
             </Router>
         );
-    };
+    }
 }
 
 function syncFetch(url) {
@@ -63,7 +55,7 @@ const Home = () => <h2>Home2</h2>
 const UserPage = (match) => {
     console.log(match)
     var s2 = syncFetch(`https://m2np.com/api/user/1`);
-    return <div>{JSON.stringify(s2)} </div>
+    return <div>USER: {JSON.stringify(s2)} </div>
 
 }
 class User extends React.Component {
@@ -102,7 +94,7 @@ class User extends React.Component {
     }
 }
 
-function Topics({ match }) {
+function Users({ match }) {
     return (
         <div>
             <Link to={`${match.url}/components`}>Components</Link><br />
