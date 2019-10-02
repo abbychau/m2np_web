@@ -1,6 +1,6 @@
 import React, { useGlobal } from 'reactn'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import { Timeline } from "./Timeline"
+import Timeline from "./Timeline"
 import Navbar from "./Navbar"
 import AsyncUserMentions from "./Input/AsyncUserMention"
 
@@ -20,6 +20,7 @@ class App extends React.PureComponent {
                 )
                 .catch((e) => { console.log(e) })
         )
+        console.log(this.global)
     }
 
     render() {
@@ -30,9 +31,8 @@ class App extends React.PureComponent {
   <h2>Scroll Down</h2>
   <p>Scroll down to see the sticky effect.</p>
 </div>
-                    <Navbar style={{zIndex:'1000'}}/>
-                    <AsyncUserMentions  style={{zIndex:'1'}} />
-                    <div style={{color:"#ccc"}}>{JSON.stringify(this.global)}</div>
+                    <Navbar />
+                    <AsyncUserMentions  style={{zIndex:-10,position: 'relative'}} />
                     <Route exact path="/" component={Home} />
                     <Route path="/u" component={UserPage} />
                     <Route path="/users" component={Users} />

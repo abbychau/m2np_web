@@ -20,7 +20,7 @@ function fetchUsers(query, callback) {
 
 function AsyncUserMentions({ value, data, onChange }) {
   return (
-    <div className="async">
+    <div className="async" style={{}}>
 
       <MentionsInput
         value={value}

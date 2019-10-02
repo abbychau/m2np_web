@@ -2,7 +2,8 @@ import React from 'reactn';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import nl2br from 'react-nl2br';
 import AutolinkerWrapper from 'react-autolinker-wrapper'
-
+import Userlink from '../Userlink'
+import './style.css'
 
 function nl2br(str, is_xhtml) {
   if (typeof str === 'undefined' || str === null) {
@@ -48,7 +49,7 @@ function timeDifference(previous) {
   }
 }
 
-export class Timeline extends React.Component {
+export default class Timeline extends React.Component {
 
   constructor(props) {
     super(props);
@@ -111,9 +112,9 @@ export class Timeline extends React.Component {
                   tagName="div"
                   text={nl2br(item.json.post)}
                   options={replaceOptions}
-                  style={{ background: "none" }}
+                  className="inline"
                 />
-                <div>
+                <div style={{display:'inline'}}>
                   {item.json.attachments ?
                     item.json.attachments.map((attm, k2) => {
                       var jsx=[
@@ -140,8 +141,8 @@ export class Timeline extends React.Component {
                       : null
                   }
                 </div>
-                <div>
-                  ~ <Link to={`/u/${this.global.users[item.user_id].username}`} style={{ color: "red" }}>{this.global.users[item.user_id].display_name}</Link> @ <span>{timeDifference(item.json.created_at / 1000)}</span>
+                <div style={{display:'inline'}}>
+                  <span style={{color:"#999"}}> ~</span><Userlink userId={item.user_id}/> <span style={{color: "#999"}}>{timeDifference(item.json.created_at / 1000)}</span>
                 </div>
 
               </div>
